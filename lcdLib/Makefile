@@ -2,7 +2,8 @@ all: libLcd.a lcddemo.elf
 
 CPU             = msp430g2553
 CFLAGS          = -mmcu=${CPU} -Os -I../h  -I/opt/ti/msp430-gcc/include/
-LDFLAGS 	= -L/opt/ti/msp430_gcc/include -L../lib 
+LDFLAGS		= -L../lib -L/opt/ti/msp430-gcc/include
+
 #switch the compiler (for the internal make rules)
 CC              = msp430-elf-gcc
 AS              = msp430-elf-as
@@ -23,7 +24,7 @@ clean:
 	rm -f libLcd.a *.o *.elf
 
 lcddemo.elf: lcddemo.o libLcd.a 
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ -lTimer 
+	mspdebug ${MSPLOADER_OPTION} "prog $^"
 
 load: lcddemo.elf
 	msp430loader.sh $^

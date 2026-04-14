@@ -1,6 +1,6 @@
 # makfile configuration
 CPU             	= msp430g2553
-CFLAGS          	= -mmcu=${CPU} -Os -I../h
+CFLAGS          	= -mmcu=${CPU} -Os -I../h -I/opt/ti/msp430-gcc/include/
 LDFLAGS		= -L../lib -L/opt/ti/msp430_gcc/include/ 
 
 #switch the compiler (for the internal make rules)

@@ -1,7 +1,7 @@
 # makfile configuration
 CPU             	= msp430g2553
-CFLAGS          	= -mmcu=${CPU} -Os -I../h
-LDFLAGS		= -L../lib -L/opt/ti/msp430_gcc/include/ 
+CFLAGS          	= -mmcu=${CPU} -Os -I../h  -I/opt/ti/msp430-gcc/include/
+LDFLAGS		= -L../lib -L/opt/ti/msp430-gcc/include
 
 #switch the compiler (for the internal make rules)
 CC              = msp430-elf-gcc
@@ -14,7 +14,7 @@ wakedemo.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd 
 
 load: wakedemo.elf
-	msp430loader.sh $^
+	mspdebug ${MSPLOADER_OPTION} "prog $^"
 
 clean:
 	rm -f *.o *.elf
